@@ -1,0 +1,45 @@
+@if (show) {
+<p-card class="fixed bottom-4 right-4 max-h-[300px] w-[250px]">
+  <ng-template pTemplate="header">
+    <div class="flex justify-between items-center px-4 pt-4">
+      @if (mode === 'menu') {
+      <div class="text-lg">
+        Mode
+      </div>
+      <p-button icon="pi pi-times" size="small" severity="danger" [raised]="true"
+        (onClick)="mode = 'menu'; show = false" />
+      } @else {
+      <div class="text-lg">
+        {{ mode === 'words' ? 'Words' : 'Bonus words' }}
+      </div>
+      <div class="flex gap-1">
+        <p-button icon="pi pi-arrow-left" size="small" severity="secondary" [raised]="true" (onClick)="mode = 'menu'" />
+        <p-button icon="pi pi-times" size="small" severity="danger" [raised]="true"
+          (onClick)="mode = 'menu'; show = false" />
+      </div>
+      }
+    </div>
+  </ng-template>
+  @if (mode === 'menu') {
+  <div class="flex flex-col gap-2">
+    <p-button styleClass="text-sm w-full" severity="success" [raised]="true" (onClick)="mode = 'words'" label="Words" />
+    <p-button styleClass="text-sm w-full" severity="success" [raised]="true" (onClick)="mode = 'optionalWords'"
+      label="Bonus words" />
+  </div>
+  } @else {
+  <div>
+    <p-scrollPanel [style]="{ height: '200px', width: '100%' }">
+      @for (word of (mode === 'words' ? words : optionalWords); track $index) {
+      <div>
+        {{ word }}
+      </div>
+      }
+    </p-scrollPanel>
+  </div>
+  }
+</p-card>
+} @else {
+<div class="fixed bottom-4 right-4">
+  <p-button icon="pi pi-search" severity="help" size="large" [raised]="true" [rounded]="true" (onClick)="show = true" />
+</div>
+}
