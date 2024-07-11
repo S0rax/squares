@@ -8,15 +8,15 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { CardModule } from 'primeng/card';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    ButtonModule,
-    ScrollPanelModule,
-    CardModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        ButtonModule,
+        ScrollPanelModule,
+        CardModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}
