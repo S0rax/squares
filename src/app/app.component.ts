@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { PuzzleResponse, DecryptedPuzzleResponse } from 'src/models/puzzle';
 import { firstValueFrom } from 'rxjs';
-import * as moment from 'moment';
 import { trigger, style, transition, animate, keyframes } from '@angular/animations';
 import { faArrowLeft, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 type DisplayMode = 'menu' | 'words' | 'optionalWords';
 
@@ -45,7 +45,7 @@ type DisplayMode = 'menu' | 'words' | 'optionalWords';
 export class AppComponent implements OnInit {
     // consts
     private secret = '8C5a9o2Z8zjmCLHB';
-    private startDate = moment('2024-02-28T00:00:00');
+    private startDate = new Date('2024-02-28T00:00:00');
 
     // props
     showMenu = false;
@@ -53,15 +53,13 @@ export class AppComponent implements OnInit {
     words: string[] = [];
     optionalWords: string[] = [];
 
-    // icons
-    faXmark = faXmark;
-    faMagnifyingGlass = faMagnifyingGlass;
-    faArrowLeft = faArrowLeft;
-
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, library: FaIconLibrary) {
+        library.addIcons(faXmark, faMagnifyingGlass, faArrowLeft)
+    }
 
     async ngOnInit(): Promise<void> {
-        const offset = moment().diff(this.startDate, 'days');
+        const difference = Math.abs(new Date().getTime() - this.startDate.getTime())
+        const offset = Math.floor(difference / 1000 / 60 / 60 / 24);
         const puzzleResponse = await firstValueFrom(this.httpClient.get<PuzzleResponse>(`https://squares.org/api/v1/basic/load-puzzles?offset=${offset}`));
         const wordArray = CryptoJS.AES.decrypt(puzzleResponse.puzzles, this.secret);
         const decrypted = CryptoJS.enc.Utf8.stringify(wordArray);
