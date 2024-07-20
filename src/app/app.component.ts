@@ -5,6 +5,7 @@ import { PuzzleResponse, DecryptedPuzzleResponse } from 'src/models/puzzle';
 import { firstValueFrom } from 'rxjs';
 import * as moment from 'moment';
 import { trigger, style, transition, animate, keyframes } from '@angular/animations';
+import { faArrowLeft, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 type DisplayMode = 'menu' | 'words' | 'optionalWords';
 
@@ -18,7 +19,7 @@ type DisplayMode = 'menu' | 'words' | 'optionalWords';
                 animate('0.3s', keyframes([
                     style({ display: 'none', height: '0px', opacity: 0, offset: 0 }),
                     style({ display: 'none', height: '0px', opacity: 0, offset: 0.5 }),
-                    style({ display: 'block', height: '84px', opacity: 0, offset: 0.51 }),
+                    style({ display: 'block', height: '90px', opacity: 0, offset: 0.51 }),
                     style({ display: 'block', height: '200px', opacity: 1, offset: 1 }),
                 ]))
             ]),
@@ -29,8 +30,8 @@ type DisplayMode = 'menu' | 'words' | 'optionalWords';
                 animate('0.3s', keyframes([
                     style({ display: 'none', height: '0px', opacity: 0, offset: 0 }),
                     style({ display: 'none', height: '0px', opacity: 0, offset: 0.5 }),
-                    style({ display: 'block', height: '84px', opacity: 0, offset: 0.51 }),
-                    style({ display: 'block', height: '84px', opacity: 1, offset: 1 }),
+                    style({ display: 'block', height: '90px', opacity: 0, offset: 0.51 }),
+                    style({ display: 'block', height: '90px', opacity: 1, offset: 1 }),
                 ]))
             ]),
             transition(':leave', [animate('0.15s', style({ opacity: 0 }))])
@@ -42,12 +43,20 @@ type DisplayMode = 'menu' | 'words' | 'optionalWords';
     ]
 })
 export class AppComponent implements OnInit {
+    // consts
     private secret = '8C5a9o2Z8zjmCLHB';
     private startDate = moment('2024-02-28T00:00:00');
+
+    // props
     showMenu = false;
     mode: DisplayMode = 'menu';
     words: string[] = [];
     optionalWords: string[] = [];
+
+    // icons
+    faXmark = faXmark;
+    faMagnifyingGlass = faMagnifyingGlass;
+    faArrowLeft = faArrowLeft;
 
     constructor(private httpClient: HttpClient) { }
 

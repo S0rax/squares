@@ -4,9 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { ButtonModule } from 'primeng/button';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
-import { CardModule } from 'primeng/card';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [
@@ -16,9 +14,7 @@ import { CardModule } from 'primeng/card';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        ButtonModule,
-        ScrollPanelModule,
-        CardModule
+        FontAwesomeModule
     ],
     providers: [],
     bootstrap: [AppComponent],

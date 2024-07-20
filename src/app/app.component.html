@@ -1,89 +1,96 @@
 @if (showMenu) {
-    <p-card
+    <div
         @showMenu
-        class="fixed bottom-4 right-4 z-[99] max-h-[300px] w-[250px]"
+        class="bg-grey-900 rounded-md text-surface-700 fixed bottom-4 right-4 z-[99] max-h-[300px] w-[250px] p-2 font-sans"
     >
-        <ng-template pTemplate="header">
-            <div class="flex items-center justify-between px-4 pt-4">
+        <div class="px-4 py-2">
+            <div class="flex items-center justify-between py-2">
                 @if (mode === 'menu') {
                     <div class="text-lg">Mode</div>
-                    <p-button
-                        icon="pi pi-times"
-                        size="small"
-                        severity="danger"
-                        [raised]="true"
-                        (onClick)="mode = 'menu'; showMenu = false"
-                    />
+                    <button
+                        class="cursor-pointer rounded-lg border-0 bg-red-400 px-3 py-1.5 outline-none transition-colors hover:bg-red-200"
+                        (click)="mode = 'menu'; showMenu = false"
+                    >
+                        <fa-icon
+                            [icon]="faXmark"
+                            size="xl"
+                            class="text-grey-900"
+                        />
+                    </button>
                 } @else {
                     <div class="text-lg">
                         {{ mode === 'words' ? 'Words' : 'Bonus words' }}
                     </div>
                     <div class="flex gap-1">
-                        <p-button
-                            icon="pi pi-arrow-left"
-                            size="small"
-                            severity="secondary"
-                            [raised]="true"
-                            (onClick)="mode = 'menu'"
-                        />
-                        <p-button
-                            icon="pi pi-times"
-                            size="small"
-                            severity="danger"
-                            [raised]="true"
-                            (onClick)="mode = 'menu'; showMenu = false"
-                        />
+                        <button
+                            class="bg-grey-700 hover:bg-grey-500 cursor-pointer rounded-lg border-0 px-3 py-1.5 outline-none transition-colors"
+                            (click)="mode = 'menu'"
+                        >
+                            <fa-icon
+                                [icon]="faArrowLeft"
+                                size="xl"
+                                class="text-surface-700"
+                            />
+                        </button>
+                        <button
+                            class="cursor-pointer rounded-lg border-0 bg-red-400 px-3 py-1.5 outline-none transition-colors hover:bg-red-200"
+                            (click)="mode = 'menu'; showMenu = false"
+                        >
+                            <fa-icon
+                                [icon]="faXmark"
+                                size="xl"
+                                class="text-grey-900"
+                            />
+                        </button>
                     </div>
                 }
             </div>
-        </ng-template>
+        </div>
         @if (mode === 'menu') {
             <div
                 @showMode
-                class="flex h-[84px] flex-col overflow-hidden"
+                class="mb-2 flex h-[90px] flex-col overflow-hidden px-4 py-2"
             >
-                <p-button
-                    styleClass="text-sm w-full mb-2"
-                    severity="success"
-                    [raised]="true"
-                    (onClick)="mode = 'words'"
-                    label="Words"
-                />
-                <p-button
-                    styleClass="text-sm w-full"
-                    severity="success"
-                    [raised]="true"
-                    (onClick)="mode = 'optionalWords'"
-                    label="Bonus words"
-                />
+                <button
+                    class="text-grey-900 mb-2 w-full cursor-pointer rounded-md border-0 bg-green-400 px-3 py-1.5 text-base outline-none transition-colors hover:bg-green-200"
+                    (click)="mode = 'words'"
+                >
+                    Words
+                </button>
+                <button
+                    class="text-grey-900 mb-2 w-full cursor-pointer rounded-md border-0 bg-green-400 px-3 py-1.5 text-base outline-none transition-colors hover:bg-green-200"
+                    (click)="mode = 'optionalWords'"
+                >
+                    Bonus Words
+                </button>
             </div>
         } @else {
             <div
                 @showWords
-                class="h-[200px]"
+                class="h-[200px] overflow-y-auto px-4 pb-4"
             >
-                <p-scrollPanel [style]="{ height: '100%', width: '100%' }">
-                    @for (word of mode === 'words' ? words : optionalWords; track $index) {
-                        <div>
-                            {{ word }}
-                        </div>
-                    }
-                </p-scrollPanel>
+                @for (word of mode === 'words' ? words : optionalWords; track $index) {
+                    <div class="text-base">
+                        {{ word }}
+                    </div>
+                }
             </div>
         }
-    </p-card>
+    </div>
 } @else {
     <div
         @showMenu
         class="fixed bottom-4 right-4 z-[99]"
     >
-        <p-button
-            icon="pi pi-search"
-            severity="help"
-            size="large"
-            [raised]="true"
-            [rounded]="true"
-            (onClick)="showMenu = true"
-        />
+        <button
+            (click)="showMenu = true"
+            class="cursor-pointer rounded-full border-0 bg-blue-400 p-2.5 outline-none transition-colors hover:bg-blue-200"
+        >
+            <fa-icon
+                [icon]="faMagnifyingGlass"
+                class="text-grey-900"
+                size="xl"
+            />
+        </button>
     </div>
 }

@@ -3,17 +3,26 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "primeng/resources/themes/aura-dark-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";
+app-root {
+    font-size: 13.34px;
 
-// @layer tailwind-base, primeng, tailwind-utilities;
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
 
-// @layer tailwind-base {
-//     @tailwind base;
-// }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-// @layer tailwind-utilities {
-//     @tailwind components;
-//     @tailwind utilities;
-// }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #666;
+        border-radius: 5px;
+
+        &:hover {
+            background: #777;
+        }
+    }
+}
