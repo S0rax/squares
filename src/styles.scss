@@ -7,13 +7,13 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
-@layer tailwind-base, primeng, trailwind-utilities;
+// @layer tailwind-base, primeng, tailwind-utilities;
 
-@layer tailwind-base {
-    @tailwind base;
-}
+// @layer tailwind-base {
+//     @tailwind base;
+// }
 
-@layer tailwind-utilities {
-    @tailwind components;
-    @tailwind utilities;
-}
+// @layer tailwind-utilities {
+//     @tailwind components;
+//     @tailwind utilities;
+// }

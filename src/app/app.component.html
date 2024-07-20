@@ -1,7 +1,7 @@
 @if (showMenu) {
     <p-card
         @showMenu
-        class="fixed bottom-4 right-4 max-h-[300px] w-[250px]"
+        class="fixed bottom-4 right-4 z-[99] max-h-[300px] w-[250px]"
     >
         <ng-template pTemplate="header">
             <div class="flex items-center justify-between px-4 pt-4">
@@ -75,7 +75,7 @@
 } @else {
     <div
         @showMenu
-        class="fixed bottom-4 right-4"
+        class="fixed bottom-4 right-4 z-[99]"
     >
         <p-button
             icon="pi pi-search"
