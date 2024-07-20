@@ -1,5 +1,7 @@
 const glob = require('glob');
 const path = require('path');
+const webpack = require('webpack');
+const TerserPlugin = require("terser-webpack-plugin");
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -22,5 +24,20 @@ module.exports = {
                 use: ['style-loader', 'css-loader']
             }
         ]
-    }
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin({ extractComments: false })]
+    },
+    plugins: [
+        new webpack.BannerPlugin(`// ==UserScript==
+// @name         Squares
+// @namespace    http://tampermonkey.net/
+// @version      1.0.1
+// @description  Squares solver
+// @author       rax
+// @match        https://squares.org/
+// @license      MIT
+// ==/UserScript==`)
+    ]
 };
