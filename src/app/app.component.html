@@ -1,7 +1,7 @@
 @if (showMenu) {
     <div
         @showMenu
-        class="bg-grey-900 rounded-md text-surface-700 fixed bottom-4 right-4 z-[99] max-h-[300px] w-[250px] p-2 font-sans"
+        class="fixed bottom-4 right-4 z-[99] max-h-[300px] w-[250px] rounded-md bg-grey-900 p-2 font-sans text-surface-700"
     >
         <div class="px-4 py-2">
             <div class="flex items-center justify-between py-2">
@@ -23,7 +23,7 @@
                     </div>
                     <div class="flex gap-1">
                         <button
-                            class="bg-grey-700 hover:bg-grey-500 cursor-pointer rounded-lg border-0 px-3 py-1.5 outline-none transition-colors"
+                            class="cursor-pointer rounded-lg border-0 bg-grey-700 px-3 py-1.5 outline-none transition-colors hover:bg-grey-500"
                             (click)="mode = 'menu'"
                         >
                             <fa-icon
@@ -52,13 +52,13 @@
                 class="mb-2 flex h-[90px] flex-col overflow-hidden px-4 py-2"
             >
                 <button
-                    class="text-grey-900 mb-2 w-full cursor-pointer rounded-md border-0 bg-green-400 px-3 py-1.5 text-base outline-none transition-colors hover:bg-green-200"
+                    class="mb-2 w-full cursor-pointer rounded-md border-0 bg-green-400 px-3 py-1.5 text-base text-grey-900 outline-none transition-colors hover:bg-green-200"
                     (click)="mode = 'words'"
                 >
                     Words
                 </button>
                 <button
-                    class="text-grey-900 mb-2 w-full cursor-pointer rounded-md border-0 bg-green-400 px-3 py-1.5 text-base outline-none transition-colors hover:bg-green-200"
+                    class="mb-2 w-full cursor-pointer rounded-md border-0 bg-green-400 px-3 py-1.5 text-base text-grey-900 outline-none transition-colors hover:bg-green-200"
                     (click)="mode = 'optionalWords'"
                 >
                     Bonus Words
@@ -70,8 +70,11 @@
                 class="h-[200px] overflow-y-auto px-4 pb-4"
             >
                 @for (word of mode === 'words' ? words : optionalWords; track $index) {
-                    <div class="text-base">
-                        {{ word }}
+                    <div
+                        class="text-base transition-all duration-500 ease-linear"
+                        [class.found]="word.found"
+                    >
+                        {{ word.word }}
                     </div>
                 }
             </div>

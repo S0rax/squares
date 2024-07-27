@@ -33,7 +33,7 @@ module.exports = {
         new webpack.BannerPlugin(`// ==UserScript==
 // @name         Squares
 // @namespace    http://tampermonkey.net/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Squares solver
 // @author       rax
 // @match        https://squares.org/

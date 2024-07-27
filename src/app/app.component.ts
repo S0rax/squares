@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 import { trigger, style, transition, animate, keyframes } from '@angular/animations';
 import { faArrowLeft, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { Word } from 'src/models/word';
 
 type DisplayMode = 'menu' | 'words' | 'optionalWords';
 
@@ -50,8 +51,9 @@ export class AppComponent implements OnInit {
     // props
     showMenu = false;
     mode: DisplayMode = 'menu';
-    words: string[] = [];
-    optionalWords: string[] = [];
+    words: Word[] = [];
+    optionalWords: Word[] = [];
+    foundWords = new Set<string>();
 
     constructor(private httpClient: HttpClient, library: FaIconLibrary) {
         library.addIcons(faXmark, faMagnifyingGlass, faArrowLeft)
@@ -59,13 +61,32 @@ export class AppComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         const difference = Math.abs(new Date().getTime() - this.startDate.getTime())
-        const offset = Math.floor(difference / 1000 / 60 / 60 / 24);
+        const dayMiliseconds = 1000 * 60 * 60 * 24;
+        const offset = Math.floor(difference / dayMiliseconds);
         const puzzleResponse = await firstValueFrom(this.httpClient.get<PuzzleResponse>(`https://squares.org/api/v1/basic/load-puzzles?offset=${offset}`));
         const wordArray = CryptoJS.AES.decrypt(puzzleResponse.puzzles, this.secret);
         const decrypted = CryptoJS.enc.Utf8.stringify(wordArray);
         const decryptedPuzzleResponse = JSON.parse(decrypted) as DecryptedPuzzleResponse[];
         const puzzle = decryptedPuzzleResponse.reduce((acc, next) => next.id > acc.id ? next : acc);
-        this.words = [...puzzle.words].sort((a, b) =>  b.length - a.length || a.localeCompare(b));
-        this.optionalWords = puzzle.optionalWords;
+        this.words = [...puzzle.words].sort((a, b) =>  b.length - a.length || a.localeCompare(b)).map(x => ({ word: x, found: false }));
+        this.optionalWords = puzzle.optionalWords.map(x => ({ word: x, found: false }));
+
+        setInterval(this.updateWords.bind(this), 100);
+    }
+
+    private updateWords(): void {
+        const wordDivs = document.querySelectorAll('.foundwords__element');
+        if (wordDivs.length === this.foundWords.size) return;
+
+        wordDivs.forEach(x => {
+            const div = x as HTMLElement;
+            if (!this.foundWords.has(div.innerHTML)) {
+                this.foundWords.add(div.innerText);
+                const word = this.words.find(x => x.word === div.innerText);
+                const optionalWord = this.optionalWords.find(x => x.word === div.innerText);
+                word && (word.found = true);
+                optionalWord && (optionalWord.found = true);
+            }
+        })
     }
 }
