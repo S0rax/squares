@@ -3,6 +3,8 @@ const path = require('path');
 const webpack = require('webpack');
 const TerserPlugin = require("terser-webpack-plugin");
 
+const { version } = require('./package.json');
+
 /** @type {import('webpack').Configuration} */
 module.exports = {
     entry: {
@@ -33,7 +35,7 @@ module.exports = {
         new webpack.BannerPlugin(`// ==UserScript==
 // @name         Squares
 // @namespace    http://tampermonkey.net/
-// @version      1.0.2
+// @version      ${version}
 // @description  Squares solver
 // @author       rax
 // @match        https://squares.org/
