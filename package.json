@@ -18,6 +18,7 @@
     "@angular/router": "^18.2.13",
     "@fortawesome/angular-fontawesome": "^0.14.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@types/crypto-js": "^4.2.2",
     "crypto-js": "^4.2.0",
