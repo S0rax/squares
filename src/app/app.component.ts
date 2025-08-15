@@ -62,8 +62,8 @@ export class AppComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         const difference = Math.abs(new Date().getTime() - this.startDate.getTime())
-        const dayMiliseconds = 1000 * 60 * 60 * 24;
-        const offset = Math.floor(difference / dayMiliseconds);
+        const dayMilliseconds = 1000 * 60 * 60 * 24;
+        const offset = Math.floor(difference / dayMilliseconds);
         const puzzleResponse = await firstValueFrom(this.httpClient.get<PuzzleResponse>(`https://squares.org/api/v1/basic/load-puzzles?offset=${offset}`));
         const wordArray = CryptoJS.AES.decrypt(puzzleResponse.puzzles, this.secret);
         const decrypted = CryptoJS.enc.Utf8.stringify(wordArray);
