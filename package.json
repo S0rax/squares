@@ -30,7 +30,7 @@
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.0",
+    "@angular-devkit/build-angular": "19",
     "@angular/cli": "20",
     "@angular/compiler-cli": "^18.2.13",
     "@types/jasmine": "~5.1.4",
@@ -45,7 +45,7 @@
     "prettier-plugin-tailwindcss": "^0.6.5",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.10",
-    "typescript": "~5.4.2",
+    "typescript": "5.8.3",
     "webpack-cli": "^5.1.4"
   },
   "resolutions": {
