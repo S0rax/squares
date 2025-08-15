@@ -41,7 +41,8 @@ type DisplayMode = 'menu' | 'words' | 'bonusWords';
             transition(':enter', [style({ opacity: 0 }), animate('0.15s 0.15s', style({ opacity: 1 }))]),
             transition(':leave', [animate('0.15s', style({ opacity: 0 }))])
         ])
-    ]
+    ],
+    standalone: false
 })
 export class AppComponent implements OnInit {
     // consts
