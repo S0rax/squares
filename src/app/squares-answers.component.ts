@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { trigger, style, transition, animate, keyframes } from '@angular/animations';
-import { faArrowLeft, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faMagnifyingGlass, faXmark, faHourglass } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { waitForElement } from 'src/helpers/utils';
 import { DecryptedPuzzleResponse, DisplayMode, PuzzleResponse, Word } from 'src/models';
@@ -66,7 +66,7 @@ export class SquaresAnswersComponent implements OnInit, OnDestroy {
     mode: DisplayMode = DisplayMode.Menu;
     officialWords: Word[] = [];
     bonusWords: Word[] = [];
-    foundWords = new Set<string>();
+    foundOfficialWords = new Set<string>();
     foundBonusWords = new Set<string>();
     mutationObserver: MutationObserver | undefined;
     scheduledUpdate = false;
@@ -76,7 +76,7 @@ export class SquaresAnswersComponent implements OnInit, OnDestroy {
         private changeDetectorRef: ChangeDetectorRef,
         library: FaIconLibrary
     ) {
-        library.addIcons(faXmark, faMagnifyingGlass, faArrowLeft);
+        library.addIcons(faXmark, faMagnifyingGlass, faArrowLeft, faHourglass);
     }
 
     ngOnInit(): void {
@@ -128,15 +128,15 @@ export class SquaresAnswersComponent implements OnInit, OnDestroy {
 
     private updateWords(): void {
         const wordDivs = document.querySelectorAll<HTMLDivElement>(this.selectors.foundWordElements);
-        if (wordDivs.length === this.foundWords.size + this.foundBonusWords.size) return;
+        if (wordDivs.length === this.foundOfficialWords.size + this.foundBonusWords.size) return;
 
         wordDivs.forEach((x) => {
             const text = x.innerText.trim();
             const wordMatch = this.officialWords.find((x) => x.word === text);
             const bonusWordMatch = this.bonusWords.find((x) => x.word === text);
 
-            if (wordMatch && !this.foundWords.has(text)) {
-                this.foundWords.add(text);
+            if (wordMatch && !this.foundOfficialWords.has(text)) {
+                this.foundOfficialWords.add(text);
                 wordMatch.found = true;
             }
 
