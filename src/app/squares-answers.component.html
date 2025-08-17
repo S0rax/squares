@@ -1,0 +1,101 @@
+@if (isInit) {
+    @if (showMenu) {
+        <div
+            @showMenu
+            class="fixed bottom-4 right-4 z-[99] max-h-[320px] w-[280px] rounded-md bg-grey-900 p-2 font-sans text-surface-700 scroll"
+        >
+            <div class="px-4 py-2">
+                <div class="flex items-center justify-between py-2">
+                    @if (mode === DisplayMode.Menu) {
+                        <div class="text-lg">Mode</div>
+                        <button
+                            class="cursor-pointer rounded-lg border-0 bg-red-400 p-1.5 outline-none transition-colors hover:bg-red-200"
+                            (click)="mode = DisplayMode.Menu; showMenu = false"
+                        >
+                            <fa-icon
+                                icon="xmark"
+                                size="xl"
+                                class="text-grey-900"
+                            />
+                        </button>
+                    } @else {
+                        <div class="text-lg">
+                            {{ mode === DisplayMode.OfficialWords ? 'Official Words' : 'Bonus Words' }}
+                        </div>
+                        <div class="flex gap-1">
+                            <button
+                                class="cursor-pointer rounded-lg border-0 bg-grey-700 p-1.5 outline-none transition-colors hover:bg-grey-500"
+                                (click)="mode = DisplayMode.Menu"
+                            >
+                                <fa-icon
+                                    icon="arrow-left"
+                                    size="xl"
+                                    class="text-surface-700"
+                                />
+                            </button>
+                            <button
+                                class="cursor-pointer rounded-lg border-0 bg-red-400 p-1.5 outline-none transition-colors hover:bg-red-200"
+                                (click)="mode = DisplayMode.Menu; showMenu = false"
+                            >
+                                <fa-icon
+                                    icon="xmark"
+                                    size="xl"
+                                    class="text-grey-900"
+                                />
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+            @if (mode === DisplayMode.Menu) {
+                <div
+                    @showMode
+                    class="mb-2 flex h-[90px] flex-col overflow-hidden px-4 py-2"
+                >
+                    <button
+                        class="mb-2 w-full cursor-pointer rounded-md border-0 bg-green-400 px-3 py-1.5 text-base text-grey-900 outline-none transition-colors hover:bg-green-200"
+                        (click)="mode = DisplayMode.OfficialWords"
+                    >
+                        Official Words
+                    </button>
+                    <button
+                        class="mb-2 w-full cursor-pointer rounded-md border-0 bg-green-400 px-3 py-1.5 text-base text-grey-900 outline-none transition-colors hover:bg-green-200"
+                        (click)="mode = DisplayMode.BonusWords"
+                    >
+                        Bonus Words
+                    </button>
+                </div>
+            } @else {
+                <div
+                    @showWords
+                    class="h-[200px] overflow-y-auto px-4 pb-4"
+                >
+                    @for (word of words; track $index) {
+                        <div
+                            class="text-base transition-all duration-300 ease-linear"
+                            [class.found]="word.found"
+                        >
+                            {{ word.word }}
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    } @else {
+        <div
+            @showMenu
+            class="fixed bottom-4 right-4 z-[99]"
+        >
+            <button
+                (click)="showMenu = true"
+                class="cursor-pointer aspect-square rounded-full border-0 bg-blue-400 p-2.5 outline-none transition-colors hover:bg-blue-200"
+            >
+                <fa-icon
+                    icon="magnifying-glass"
+                    class="text-grey-900"
+                    size="xl"
+                />
+            </button>
+        </div>
+    }
+}

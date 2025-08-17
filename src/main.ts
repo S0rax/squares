@@ -1,11 +1,22 @@
-import 'zone.js';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import '@angular/compiler';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { SquaresAnswersComponent } from 'src/app/squares-answers.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { enableProdMode, provideZonelessChangeDetection } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { env } from 'src/envs/env';
 
-import { AppModule } from './app/app.module';
+if (env.production) {
+    enableProdMode();
+}
 
-const appRoot = document.createElement('app-root');
-document.body.appendChild(appRoot)
+const appRoot = document.createElement('squares-answers');
+document.body.appendChild(appRoot);
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+bootstrapApplication(SquaresAnswersComponent, {
+    providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        provideZonelessChangeDetection(),
+        provideAnimations()
+    ]
+}).catch(console.error);

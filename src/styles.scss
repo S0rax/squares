@@ -1,28 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-app-root {
-    font-size: 13.34px;
+.found {
+    @apply line-through bg-grey-400 text-grey-900;
 
-    /* width */
-    ::-webkit-scrollbar {
-        width: 10px;
+    &:has(+ &) {
+        @apply rounded-t;
     }
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-        background: transparent;
+    & + & {
+        @apply rounded-none;
     }
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #666;
-        border-radius: 5px;
+    &:not(:has(+ &)):not(:only-child) {
+        @apply rounded-b;
+    }
 
-        &:hover {
-            background: #777;
-        }
+    &:not(:has(+ &)):not(:is(& + &)) {
+        @apply rounded;
     }
 }

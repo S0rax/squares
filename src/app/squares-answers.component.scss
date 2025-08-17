@@ -1,0 +1,24 @@
+:host {
+    font-size: 13px;
+    user-select: none;
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #666;
+        border-radius: 5px;
+
+        &:hover {
+            background: #888;
+        }
+    }
+}
